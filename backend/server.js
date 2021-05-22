@@ -4,15 +4,16 @@ let cors=require('cors')
 let port = 3000;
 let {spawn}=require('child_process');
 
-app.use(cors())
+app.use(cors());
 
 
 app.get('/',(req,res)=>{
-    let s='The Godfather';
+    let s=req.query.id;
+    console.log(s);
     let py=spawn('python',['backend/model.py',s]);
     //console.log(py.stdout);
     py.stdout.on('data',function(data){
-        console.log(data.toString());
+        //console.log(data.toString());
         res.write(data);
         res.end('end');
     })  

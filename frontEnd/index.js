@@ -1,14 +1,14 @@
 var request = new XMLHttpRequest()
 
-request.open('GET', 'http://localhost:3000/search', true)
+function solve() {
+    var s = document.getElementById('movie').value;
+    console.log(s);
+    let url='http://127.0.0.1:3000?id=Deadpool';
+    request.open('GET',url,true);
+    request.onload = function () {
+        var data = this.response;
+       document.getElementById('disp').innerHTML=data;
 
-request.onload = function () {
-    var data = JSON.parse(this.response)
-    console.log(data)
-    data.forEach((x) => {
-        document.getElementById('disp').innerHTML += x;
-    })
-
+    }
+    request.send()
 }
-
-request.send()
