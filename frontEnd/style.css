@@ -1,15 +1,14 @@
 body{
     margin: 0;
     padding: 0;
-    background: #e84118;
+    background: cyan;
 }
 .content{
     display: flex;
     position: absolute;
-    justify-content: center;
-    align-items: center;
     margin: auto;
     width: 50%;
+    flex-direction: column;
     border: 3px solid green;
     top:50%;
     bottom: 0;
@@ -19,10 +18,22 @@ body{
     padding: 10px;
 }
 .search-box{
-   position: absolute;
+   display: inline;
+   padding-left: 40px;
+   padding-top: 10px;
 }
 
 #movie{
     width: 200px;
    background-color: aquamarine;
+}
+
+#disp{
+    display: flex;
+    align-self: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+
 }

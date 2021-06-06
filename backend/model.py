@@ -1,3 +1,4 @@
+from numpy.core.fromnumeric import shape
 from sklearn.metrics.pairwise import sigmoid_kernel
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
@@ -32,6 +33,7 @@ indices = pd.Series(movies_clean.index,
                     index=movies_clean['original_title'])
 
 title = sys.argv[1]
+#title="Deadpool"
 # Get index corresponding to original_title
 idx = indices[title]
 
@@ -42,12 +44,19 @@ lin_scores = list(enumerate(ker[idx]))
 lin_scores = sorted(lin_scores, key=lambda x: x[1], reverse=True)
 
 # Scores of  10 most similar movies
-lin_scores = lin_scores[1:6]
+lin_scores = lin_scores[1:9]
 # Movie indices
 movie_indices = [i[0] for i in lin_scores]
 
 # Top 10 most similar movies
-print(movies_clean['original_title'].iloc[movie_indices])
+#print(movies_clean['original_title'].iloc[movie_indices])
+x=movies_clean['original_title'].iloc[movie_indices]
+res=[]
+#print(shape(x))
+for item in x:
+    res.append(item)
+
+print(res)
 sys.stdout.flush()
 
 # sys.modules[__name__]=give_rec

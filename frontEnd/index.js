@@ -7,7 +7,12 @@ function solve() {
     request.open('GET',url,true);
     request.onload = function () {
         var data = this.response;
-       document.getElementById('disp').innerHTML=data;
+        var x=data.split(',');
+        for(var i=1;i<x.length-1;i++){
+            document.getElementById('disp').innerHTML+=x[i]+"<br/><br/>";
+        }
+        
+      //  document.getElementById('disp').innerHTML=data;
 
     }
     request.send()
