@@ -12,12 +12,20 @@
 
 <body>
     <h1 style="position: absolute;">Recommendation System</h1>
-    <div class="content">   
+    <div class="content">
         <div class="search-box">
             <input type='text' id='movie' placeholder="Movie name" />
+            <div class="radios">
+                <form>
+                    <input type="radio" id="rec1" value="contentBased" name="type" />
+                    <label for="rec1">Content based</label>
+                    <input type="radio" id="rec2" calue="collaborativeBased" name="type" />
+                    <label for="rec2">Collaborative based</label>
+                </form>
+            </div>
             <input type="submit" onclick="solve()" />
         </div>
-        <br/>
+        <br />
         <p id="disp"></p>
     </div>
 </body>

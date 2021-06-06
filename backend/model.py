@@ -6,7 +6,6 @@ import numpy as np
 import seaborn as sns
 import sys
 
-# def give_rec():
 credits = pd.read_csv('backend/tmdb_5000_credits.csv')
 movies_incomplete = pd.read_csv("backend/tmdb_5000_movies.csv")
 

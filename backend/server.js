@@ -7,8 +7,21 @@ let {spawn}=require('child_process');
 app.use(cors());
 
 
-app.get('/',(req,res)=>{
+
+app.get('/contentBased',(req,res)=>{
     let s=req.query.id;
+    console.log(s);
+    let py=spawn('python',['backend/model.py',s]);
+    //console.log(py.stdout);
+    py.stdout.on('data',function(data){
+        //console.log(data.toString());
+        res.write(data);
+        res.end();
+    })  
+})
+
+app.get('/collaborativeBased',(req,res)=>{
+   /* let s=req.query.id;
     console.log(s);
     let py=spawn('python',['backend/model.py',s]);
     //console.log(py.stdout);
@@ -17,6 +30,11 @@ app.get('/',(req,res)=>{
         res.write(data);
         res.end('end');
     })  
+    */
+   console.log('in colab');
+   res.write('works collaborative');
+   res.end();
 })
+
 
 app.listen(port);

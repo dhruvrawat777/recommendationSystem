@@ -18,7 +18,10 @@ body{
     padding: 10px;
 }
 .search-box{
-   display: inline;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   align-self: center;
    padding-left: 40px;
    padding-top: 10px;
 }
@@ -35,5 +38,9 @@ body{
     margin-top: 20px;
     margin-left: 10px;
     margin-right: 10px;
+}
 
+.radios{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
