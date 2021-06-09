@@ -7,7 +7,13 @@ function solve2() {
     request.onload = function () {
         var data = this.response;
         console.log(data);
-        document.getElementById('disp').innerHTML =data;
+        //document.getElementById('disp').innerHTML =data;
+        var x = data.split(',');
+        document.getElementById('disp').innerHTML = "";
+        for (var i = 0; i < x.length ; i++) {
+            document.getElementById('disp').innerHTML += x[i] + "<br/><br/>";
+        }
+        
     }
     request.send()
 }
@@ -25,7 +31,7 @@ function solve() {
             var data = this.response;
             var x = data.split(',');
             document.getElementById('disp').innerHTML = "";
-            for (var i = 1; i < x.length - 1; i++) {
+            for (var i = 0; i < x.length ; i++) {
                 document.getElementById('disp').innerHTML += x[i] + "<br/><br/>";
             }
 

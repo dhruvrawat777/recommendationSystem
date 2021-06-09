@@ -43,7 +43,7 @@ lin_scores = list(enumerate(ker[idx]))
 lin_scores = sorted(lin_scores, key=lambda x: x[1], reverse=True)
 
 # Scores of  10 most similar movies
-lin_scores = lin_scores[1:9]
+lin_scores = lin_scores[1:7]
 # Movie indices
 movie_indices = [i[0] for i in lin_scores]
 

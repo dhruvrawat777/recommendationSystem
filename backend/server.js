@@ -21,19 +21,15 @@ app.get('/contentBased',(req,res)=>{
 })
 
 app.get('/collaborativeBased',(req,res)=>{
-   /* let s=req.query.id;
-    console.log(s);
-    let py=spawn('python',['backend/model.py',s]);
+    let s=req.query.id;
+    let py=spawn('python',['backend/colabmodel.py',s]);
     //console.log(py.stdout);
+    console.log(s)
     py.stdout.on('data',function(data){
         //console.log(data.toString());
         res.write(data);
-        res.end('end');
+        res.end();
     })  
-    */
-   console.log('in colab');
-   res.write('works collaborative');
-   res.end();
 })
 
 
