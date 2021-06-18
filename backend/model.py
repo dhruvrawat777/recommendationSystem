@@ -11,7 +11,6 @@ movies = pd.read_csv("backend/tmdb_5000_movies.csv")
 movies=movies.rename(index=str,columns={'id':'movie_id'})
 movies = movies.merge(credits, on='movie_id')
 
-
 countvectorizer = CountVectorizer()
 
 # Filling NaN with empty
