@@ -21,10 +21,10 @@ function solve2() {
 function solve() {
     var s = document.getElementById('movie').value;
     console.log(s);
-    if (document.getElementById('rec2').checked) {
-        solve2();
-    }
-    else {
+   // if (document.getElementById('rec2').checked) {
+   //     solve2();
+   // }
+ //   else {
         let url = 'http://127.0.0.1:3000/contentBased?id=' + s;
         request.open('GET', url, true);
         request.onload = function () {
@@ -39,5 +39,5 @@ function solve() {
 
         }
         request.send()
-    }
+  //  }
 }

@@ -1,55 +1,60 @@
-from numpy.core.fromnumeric import shape
-from sklearn.metrics.pairwise import sigmoid_kernel
-from sklearn.feature_extraction.text import TfidfVectorizer
+#from numpy.core.fromnumeric import shape
+from sklearn.metrics.pairwise import linear_kernel
+from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd
 import numpy as np
-import seaborn as sns
+#import seaborn as sns
 import sys
 
 credits = pd.read_csv('backend/tmdb_5000_credits.csv')
-movies_incomplete = pd.read_csv("backend/tmdb_5000_movies.csv")
-
-credits_renamed = credits.rename(index=str, columns={"movie_id": "id"})
-movies_dirty = movies_incomplete.merge(credits_renamed, on='id')
-movies_clean = movies_dirty.drop(
-    columns=['homepage', 'title_x', 'title_y', 'status', 'production_countries'])
+movies = pd.read_csv("backend/tmdb_5000_movies.csv")
+movies=movies.rename(index=str,columns={'id':'movie_id'})
+movies = movies.merge(credits, on='movie_id')
 
 
-tfv = TfidfVectorizer(min_df=5)
+countvectorizer = CountVectorizer()
 
 # Filling NaN with empty
-movies_clean['overview'] = movies_clean['overview'].fillna('')
-
-# Fitting the TF-IDF on overview of all movies
-tfv_matrix = tfv.fit_transform(movies_clean['overview'])
+movies['overview'] = movies['overview'].fillna('')
 
 
-# using linear kernel
-ker = sigmoid_kernel(tfv_matrix, tfv_matrix)
+countvectorizer_matrix = countvectorizer.fit_transform(movies['overview'])
 
-#  mapping of indices and movie titles
-indices = pd.Series(movies_clean.index,
-                    index=movies_clean['original_title'])
+kernel = linear_kernel(countvectorizer_matrix, countvectorizer_matrix)
+
+indexes = pd.Series(movies.index,index=movies['original_title'])
 
 title = sys.argv[1]
 #title="Deadpool"
-# Get index corresponding to original_title
-idx = indices[title]
+#idx=indexes.first_valid_index(title)
+#idx = indexes[title]
+f=0
+idx=-1
+for i in indexes.iteritems():
+    if(i[0]==title):
+        f=1
+        #print("found")
+        idx=i[1]
+        break
+if f==0:
+    res="Not Found"
+    print(res)
+    sys.stdout.flush()
+    exit(0)
 
 # Get the similarity scores
-lin_scores = list(enumerate(ker[idx]))
+similarity = list(enumerate(kernel[idx]))
 
 # Sortmovies
-lin_scores = sorted(lin_scores, key=lambda x: x[1], reverse=True)
+similarity = sorted(similarity, key=lambda x: x[1], reverse=True)
 
-# Scores of  10 most similar movies
-lin_scores = lin_scores[1:7]
-# Movie indices
-movie_indices = [i[0] for i in lin_scores]
 
-# Top 10 most similar movies
-#print(movies_clean['original_title'].iloc[movie_indices])
-x=movies_clean['original_title'].iloc[movie_indices]
+similarity = similarity[1:7]
+# Movie indexes
+movie_indexes = [i[0] for i in similarity]
+
+#print(movies_clean['original_title'].iloc[movie_indexes])
+x=movies['original_title'].iloc[movie_indexes]
 res=[]
 #print(shape(x))
 for item in x:
