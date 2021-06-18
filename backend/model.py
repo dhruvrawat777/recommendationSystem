@@ -1,24 +1,24 @@
-#from numpy.core.fromnumeric import shape
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd
 import numpy as np
-#import seaborn as sns
 import sys
 
+#input both files
 credits = pd.read_csv('backend/tmdb_5000_credits.csv')
 movies = pd.read_csv("backend/tmdb_5000_movies.csv")
+
+#merging both files
 movies=movies.rename(index=str,columns={'id':'movie_id'})
 movies = movies.merge(credits, on='movie_id')
 
-countvectorizer = CountVectorizer()
-
-# Filling NaN with empty
 movies['overview'] = movies['overview'].fillna('')
 
-
+#creating vectorizer
+countvectorizer = CountVectorizer()
 countvectorizer_matrix = countvectorizer.fit_transform(movies['overview'])
 
+#creating kernel
 kernel = linear_kernel(countvectorizer_matrix, countvectorizer_matrix)
 
 indexes = pd.Series(movies.index,index=movies['original_title'])
@@ -41,15 +41,14 @@ if f==0:
     sys.stdout.flush()
     exit(0)
 
-# Get the similarity scores
+#Find similarity
 similarity = list(enumerate(kernel[idx]))
 
-# Sortmovies
+#Sort by descnding to get top matches
 similarity = sorted(similarity, key=lambda x: x[1], reverse=True)
 
 
 similarity = similarity[1:7]
-# Movie indexes
 movie_indexes = [i[0] for i in similarity]
 
 #print(movies_clean['original_title'].iloc[movie_indexes])

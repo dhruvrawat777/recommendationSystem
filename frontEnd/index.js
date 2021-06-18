@@ -1,5 +1,5 @@
 var request = new XMLHttpRequest()
-
+/*
 function solve2() {
     var s = document.getElementById('movie').value;
     let url = 'http://127.0.0.1:3000/collaborativeBased?id=' + s;
@@ -17,27 +17,29 @@ function solve2() {
     }
     request.send()
 }
+*/
 
 function solve() {
     var s = document.getElementById('movie').value;
     console.log(s);
-   // if (document.getElementById('rec2').checked) {
-   //     solve2();
-   // }
- //   else {
-        let url = 'http://127.0.0.1:3000/contentBased?id=' + s;
-        request.open('GET', url, true);
-        request.onload = function () {
-            var data = this.response;
-            var x = data.split(',');
-            document.getElementById('disp').innerHTML = "";
-            for (var i = 0; i < x.length ; i++) {
-                document.getElementById('disp').innerHTML += x[i] + "<br/><br/>";
-            }
-
-            //  document.getElementById('disp').innerHTML=data;
-
+    /* if (document.getElementById('rec2').checked) {
+         solve2();
+     }
+     else {
+     */
+    let url = 'http://127.0.0.1:3000/contentBased?id=' + s;
+    request.open('GET', url, true);
+    request.onload = function () {
+        var data = this.response;
+        var x = data.split(',');
+        document.getElementById('disp').innerHTML = "";
+        for (var i = 0; i < x.length; i++) {
+            document.getElementById('disp').innerHTML += x[i] + "<br/><br/>";
         }
-        request.send()
-  //  }
+
+        //  document.getElementById('disp').innerHTML=data;
+
+    }
+    request.send()
+    //  }
 }
